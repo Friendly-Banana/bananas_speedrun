@@ -14,12 +14,13 @@ public class StartCommand extends CustomCommand {
 
     @Override
     public boolean Run(CommandSender sender, Command command, String label, String[] args) {
+        if (plugin.activeRunner.isEmpty()) return false;
         for (UUID uuid : plugin.activeRunner) {
             Player player = sender.getServer().getPlayer(uuid);
             player.teleport(player.getWorld().getSpawnLocation());
             player.setGameMode(GameMode.SURVIVAL);
         }
-        plugin.UpdateState();
-        return !plugin.activeRunner.isEmpty();
+        plugin.speedrunState = State.Running;
+        return true;
     }
 }

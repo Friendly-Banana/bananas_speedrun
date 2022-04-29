@@ -1,26 +1,25 @@
 package ga.euroblox.bananas_speedrun;
 
-import org.bukkit.GameMode;
+import net.kyori.adventure.text.Component;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ListCommand extends CustomCommand {
     public ListCommand(BananasSpeedrun plugin) {
-        super(plugin);
+        super(plugin, false);
     }
 
     @Override
     public boolean Run(CommandSender sender, Command command, String label, String[] args) {
-        for (String arg : args) {
-            Player player = sender.getServer().getPlayer(arg);
-            if (player != null && !plugin.IsSpeedrunner(player.getUniqueId())) {
-                plugin.AddSpeedrunner(player.getUniqueId());
-                player.setGameMode(GameMode.ADVENTURE);
-                player.teleport(player.getWorld().getSpawnLocation());
-            }
-        }
-        plugin.UpdateState();
-        return args.length > 0;
+        sender.sendMessage(Component.text("Speedrunners: ").append(Utils.ComponentList(plugin.speedrunner,
+                uuid -> {
+                    OfflinePlayer offlinePlayer = sender.getServer().getOfflinePlayer(uuid);
+                    if (offlinePlayer.isOnline())
+                        return Component.text(offlinePlayer.getName()).color(Utils.GREEN);
+                    else
+                        return Component.text(offlinePlayer.getName());
+                })));
+        return true;
     }
 }

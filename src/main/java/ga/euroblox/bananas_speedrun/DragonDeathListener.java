@@ -23,7 +23,7 @@ public record DragonDeathListener(BananasSpeedrun plugin) implements Listener {
             for (Player player : server.getOnlinePlayers())
                 player.showTitle(Title.title(Component.text("Game Finished"), Component.text("Dragon has been slain in " + time)));
 
-            server.broadcast(Utils.TextWithCommands("Dragon has been slain in", time, "by\n", plugin.activeRunner.stream().map(uuid -> server.getPlayer(uuid).getName()).collect(Collectors.joining(" ")), "\n", Utils.Command("Reset the world", "/reset")));
+            server.broadcast(Utils.TextWithCommands("Dragon has been slain in", time, "by\n" + plugin.activeRunner.stream().map(uuid -> server.getPlayer(uuid).getName()).collect(Collectors.joining(" ")) + "\n" + Utils.Command("Reset the world", "/reset")));
         }
     }
 }

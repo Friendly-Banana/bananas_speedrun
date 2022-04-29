@@ -17,8 +17,6 @@ public final class BananasSpeedrun extends JavaPlugin {
     public static final String STATE_PATH = "state";
     public static final String RESET_PATH = "reset";
     public static final String SPEEDRUNNER_PATH = "runner";
-    public static final int YELLOW = 0xFCE94F;
-    public static final UUID DEV_UUID = UUID.fromString("914d309b-9b39-4269-8698-69f3b569a563");
 
     public long timer = 0;
     public State speedrunState = State.NotStarted;
@@ -43,6 +41,7 @@ public final class BananasSpeedrun extends JavaPlugin {
         getCommand("reset").setExecutor(new ResetCommand(this));
         getCommand("start").setExecutor(new StartCommand(this));
         getCommand("add").setExecutor(new AddCommand(this));
+        getCommand("list").setExecutor(new ListCommand(this));
         // load previous run
         if (getConfig().getBoolean(RESET_PATH, false)) {
             Reset();

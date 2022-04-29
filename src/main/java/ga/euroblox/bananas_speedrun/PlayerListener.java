@@ -1,7 +1,6 @@
 package ga.euroblox.bananas_speedrun;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -32,7 +31,7 @@ public record PlayerListener(BananasSpeedrun plugin) implements Listener {
                 player.showTitle(Title.title(Component.text("Speedrunner"), Component.text("/start the run or /add other speedrunners")));
             } else {
                 player.setGameMode(GameMode.SURVIVAL);
-                player.showTitle(Title.title(Component.text("Speedrunner!").color(TextColor.color(0x00FF00)), Component.text("Defeat the enderdragon as fast as possible.")));
+                player.showTitle(Title.title(Component.text("Speedrunner!").color(Utils.GREEN), Component.text("Defeat the enderdragon as fast as possible.")));
             }
         } else {
             player.setGameMode(GameMode.SPECTATOR);

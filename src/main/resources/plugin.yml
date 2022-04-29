@@ -12,3 +12,9 @@ commands:
   add:
     description: Adds other player(s) to the speedrunners
     usage: /add <player> [<player>]
+  start:
+    description: Starts the speedrun attempt
+    usage: /start
+  list:
+    description: List all speedrunners, online players are marked
+    usage: /list
