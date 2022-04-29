@@ -1,0 +1,14 @@
+name: BananasSpeedrun
+version: '${project.version}'
+main: ga.euroblox.bananas_speedrun.BananasSpeedrun
+api-version: 1.18
+load: STARTUP
+authors: [ Banana ]
+description: Speedrun Server
+commands:
+  reset:
+    description: Resets the world
+    usage: /reset
+  add:
+    description: Adds other player(s) to the speedrunners
+    usage: /add <player> [<player>]
