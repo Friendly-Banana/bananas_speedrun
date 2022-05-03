@@ -2,7 +2,6 @@ package ga.euroblox.bananas_speedrun;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,8 +15,8 @@ public record PlayerListener(BananasSpeedrun plugin) implements Listener {
     public static String motd = "";
 
     @EventHandler
-    public void onPing(ServerListPingEvent e) {
-        e.motd(Component.text(motd));
+    public void onPing(ServerListPingEvent pingEvent) {
+        pingEvent.motd(Component.text(motd));
     }
 
     @EventHandler
@@ -47,16 +46,12 @@ public record PlayerListener(BananasSpeedrun plugin) implements Listener {
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-        for (Player player : event.getPlayer().getServer().getOnlinePlayers())
-            Bukkit.broadcast(player.displayName());
         plugin.activeRunner.remove(event.getPlayer().getUniqueId());
         plugin.UpdateState();
     }
 
     @EventHandler
     public void onPlayerKick(PlayerKickEvent event) {
-        for (Player player : event.getPlayer().getServer().getOnlinePlayers())
-            Bukkit.broadcast(player.displayName());
         plugin.activeRunner.remove(event.getPlayer().getUniqueId());
         plugin.UpdateState();
     }

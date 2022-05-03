@@ -2,7 +2,7 @@ package ga.euroblox.bananas_speedrun.commands;
 
 import ga.euroblox.bananas_speedrun.BananasSpeedrun;
 import ga.euroblox.bananas_speedrun.State;
-import net.kyori.adventure.text.Component;
+import ga.euroblox.bananas_speedrun.Utils;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.GameRule;
@@ -30,7 +30,7 @@ public class StartCommand extends CustomCommand {
         world.setTime(12 * 1000);
         world.setGameRule(GameRule.DO_MOB_SPAWNING, true);
         world.setDifficulty(Difficulty.NORMAL);
-        sender.getServer().broadcast(Component.text("Speedrun started by ").append(sender.name()));
+        sender.getServer().broadcast(Utils.SpaceJoin("Speedrun started by", sender.name()));
         plugin.speedrunState = State.Running;
         return true;
     }

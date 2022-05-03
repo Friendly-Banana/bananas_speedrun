@@ -46,7 +46,7 @@ public final class BananasSpeedrun extends JavaPlugin {
         getCommand("start").setExecutor(new StartCommand(this));
         getCommand("add").setExecutor(new AddCommand(this));
         getCommand("list").setExecutor(new ListCommand(this));
-        getCommand("scores").setExecutor(new ScoresCommand(this));
+        getCommand("score").setExecutor(new ScoresCommand(this));
         // load previous run
         if (getConfig().getBoolean(RESET_PATH, false)) {
             Reset();

@@ -4,20 +4,25 @@ main: ga.euroblox.bananas_speedrun.BananasSpeedrun
 api-version: 1.18
 load: STARTUP
 authors: [ Banana ]
-description: Speedrun Server
+description: Multiplayer Speedrun Plugin
 commands:
   reset:
-    description: Resets the world
-    usage: /reset
+    aliases: [ bs:reset ]
+    description: Resets everything
+    usage: "Usage: /reset"
   add:
+    aliases: [ bs:add ]
     description: Adds other player(s) to the speedrunners
-    usage: /add <player> [<player>]
+    usage: "Usage: /add <player> [<player>]"
   start:
+    aliases: [ bs:start, start-run, run ]
     description: Starts the speedrun attempt
-    usage: /start
+    usage: "Usage: /start"
   list:
+    aliases: [ bs:list ]
     description: List all speedrunners, online players are marked
-    usage: /list
-  scores:
+    usage: "Usage: /list"
+  score:
+    aliases: [ bs:score, scores ]
     description: List all past scores (of a player)
-    usage: /scores [<player>]
+    usage: "Usage: /scores [<player>]"
