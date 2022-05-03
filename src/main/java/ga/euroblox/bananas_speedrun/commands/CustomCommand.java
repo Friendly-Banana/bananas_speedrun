@@ -1,5 +1,6 @@
-package ga.euroblox.bananas_speedrun;
+package ga.euroblox.bananas_speedrun.commands;
 
+import ga.euroblox.bananas_speedrun.BananasSpeedrun;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

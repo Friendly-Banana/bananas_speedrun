@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import java.time.LocalTime;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public record DragonDeathListener(BananasSpeedrun plugin) implements Listener {
@@ -17,13 +19,15 @@ public record DragonDeathListener(BananasSpeedrun plugin) implements Listener {
     @EventHandler
     public void onEnderDragonDeath(EntityDeathEvent e) {
         if (e.getEntity() instanceof EnderDragon) {
-            plugin.speedrunState = State.NoSpeedrunnersOnline;
+            plugin.speedrunState = State.DragonSlain;
+            plugin.highscores.add(new Score(new Date().getTime(), plugin.timer, plugin.speedrunner));
+            plugin.highscores.sort(Comparator.comparingLong(Score::ticks));
             String time = LocalTime.ofSecondOfDay(plugin.timer / 20).toString();
             Server server = e.getEntity().getServer();
             for (Player player : server.getOnlinePlayers())
                 player.showTitle(Title.title(Component.text("Game Finished"), Component.text("Dragon has been slain in " + time)));
 
-            server.broadcast(Utils.TextWithCommands("Dragon has been slain in", time, "by\n" + plugin.activeRunner.stream().map(uuid -> server.getPlayer(uuid).getName()).collect(Collectors.joining(" ")) + "\n" + Utils.Command("Reset the world", "/reset")));
+            server.broadcast(Utils.TextWithCommands("Dragon has been slain in", time, "by\n" + plugin.activeRunner.stream().map(uuid -> server.getOfflinePlayer(uuid).getName()).collect(Collectors.joining(" ")) + "\n" + Utils.Command("Reset the world", "/reset")));
         }
     }
 }

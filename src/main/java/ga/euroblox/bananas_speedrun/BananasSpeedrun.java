@@ -1,8 +1,10 @@
 package ga.euroblox.bananas_speedrun;
 
+import ga.euroblox.bananas_speedrun.commands.*;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,11 +19,13 @@ public final class BananasSpeedrun extends JavaPlugin {
     public static final String STATE_PATH = "state";
     public static final String RESET_PATH = "reset";
     public static final String SPEEDRUNNER_PATH = "runner";
+    public static final String SCORES_PATH = "highscores";
 
     public long timer = 0;
     public State speedrunState = State.NotStarted;
-    public List<UUID> speedrunner = new ArrayList<>();
+    public Set<UUID> speedrunner = new HashSet<>();
     public Set<UUID> activeRunner = new HashSet<>();
+    public List<Score> highscores = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -42,6 +46,7 @@ public final class BananasSpeedrun extends JavaPlugin {
         getCommand("start").setExecutor(new StartCommand(this));
         getCommand("add").setExecutor(new AddCommand(this));
         getCommand("list").setExecutor(new ListCommand(this));
+        getCommand("scores").setExecutor(new ScoresCommand(this));
         // load previous run
         if (getConfig().getBoolean(RESET_PATH, false)) {
             Reset();
@@ -49,7 +54,13 @@ public final class BananasSpeedrun extends JavaPlugin {
         }
         timer = getConfig().getInt(TIMER_PATH);
         speedrunState = State.valueOf(getConfig().getString(STATE_PATH, State.NotStarted.toString()));
-        speedrunner = getConfig().getStringList(SPEEDRUNNER_PATH).stream().map(UUID::fromString).collect(Collectors.toList());
+        speedrunner = getConfig().getStringList(SPEEDRUNNER_PATH).stream().map(UUID::fromString).collect(Collectors.toSet());
+        ConfigurationSection section = getConfig().getConfigurationSection(SCORES_PATH);
+        if (section == null)
+            section = getConfig().createSection(SCORES_PATH);
+        for (String key : section.getKeys(false))
+            highscores.add(Score.load(getConfig(), key));
+        highscores.sort(Comparator.comparingLong(Score::ticks));
     }
 
     @Override
@@ -58,6 +69,11 @@ public final class BananasSpeedrun extends JavaPlugin {
         getConfig().set(TIMER_PATH, timer);
         getConfig().set(STATE_PATH, speedrunState.toString());
         getConfig().set(SPEEDRUNNER_PATH, speedrunner.stream().map(UUID::toString));
+        ConfigurationSection section = getConfig().getConfigurationSection(SCORES_PATH);
+        if (section == null)
+            section = getConfig().createSection(SCORES_PATH);
+        for (int i = 0; i < highscores.size(); i++)
+            highscores.get(i).save(getConfig(), section.getCurrentPath() + "." + i);
         saveConfig();
     }
 
@@ -70,7 +86,7 @@ public final class BananasSpeedrun extends JavaPlugin {
     }
 
     public void AddSpeedrunner(UUID uuid) {
-        if (!speedrunner.contains(uuid)) speedrunner.add(uuid);
+        speedrunner.add(uuid);
         activeRunner.add(uuid);
     }
 

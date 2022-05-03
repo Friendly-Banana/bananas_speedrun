@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 
 public record PlayerListener(BananasSpeedrun plugin) implements Listener {
-    static String motd = "";
+    public static String motd = "";
 
     @EventHandler
     public void onPing(ServerListPingEvent e) {

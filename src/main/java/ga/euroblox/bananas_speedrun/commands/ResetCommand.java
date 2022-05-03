@@ -1,5 +1,8 @@
-package ga.euroblox.bananas_speedrun;
+package ga.euroblox.bananas_speedrun.commands;
 
+import ga.euroblox.bananas_speedrun.BananasSpeedrun;
+import ga.euroblox.bananas_speedrun.PlayerListener;
+import ga.euroblox.bananas_speedrun.Utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Server;
