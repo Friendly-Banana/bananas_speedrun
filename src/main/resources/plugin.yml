@@ -7,22 +7,19 @@ authors: [ Banana ]
 description: Multiplayer Speedrun Plugin
 commands:
   reset:
-    aliases: [ bs:reset ]
     description: Resets everything
     usage: "Usage: /reset"
   add:
-    aliases: [ bs:add ]
     description: Adds other player(s) to the speedrunners
     usage: "Usage: /add <player> [<player>]"
   start:
-    aliases: [ bs:start, start-run, run ]
+    aliases: [ start-run, run ]
     description: Starts the speedrun attempt
     usage: "Usage: /start"
   list:
-    aliases: [ bs:list ]
     description: List all speedrunners, online players are marked
     usage: "Usage: /list"
   score:
-    aliases: [ bs:score, scores ]
+    aliases: [ scores ]
     description: List all past scores (of a player)
     usage: "Usage: /scores [<player>]"

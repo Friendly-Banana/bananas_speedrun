@@ -22,7 +22,7 @@ public class ResetCommand extends CustomCommand {
         Server server = sender.getServer();
         if (!wantsReset) {
             wantsReset = true;
-            server.broadcast(Utils.SpaceJoin(sender.getName(), "wants to reset the run. Please", Utils.Command("confirm", "/reset confirm"), "or", Utils.Command("cancel", "/reset cancel")));
+            server.broadcast(Utils.SpaceJoin(sender.getName(), "wants to reset the run. Please", Utils.Command("confirm", "/reset confirm", Utils.RED), "or", Utils.Command("cancel", "/reset cancel", Utils.GREEN)));
         } else if (args[0].equalsIgnoreCase("cancel")) {
             wantsReset = false;
         } else if (args[0].equalsIgnoreCase("confirm")) {

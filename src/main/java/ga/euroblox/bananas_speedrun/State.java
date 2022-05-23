@@ -4,5 +4,6 @@ public enum State {
     NotStarted,
     Running,
     NoSpeedrunnersOnline,
-    DragonSlain
+    DragonSlain,
+    Finished
 }

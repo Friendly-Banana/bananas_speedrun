@@ -20,7 +20,7 @@ public class StartCommand extends CustomCommand {
 
     @Override
     public boolean Run(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.activeRunner.isEmpty()) return false;
+        if (plugin.activeRunner.isEmpty() || plugin.speedrunState != State.NotStarted) return false;
         World world = sender.getServer().getWorld("world");
         for (UUID uuid : plugin.activeRunner) {
             Player player = sender.getServer().getPlayer(uuid);
@@ -28,6 +28,7 @@ public class StartCommand extends CustomCommand {
             player.setGameMode(GameMode.SURVIVAL);
         }
         world.setTime(12 * 1000);
+        world.setGameRule(GameRule.MOB_GRIEFING, true);
         world.setGameRule(GameRule.DO_MOB_SPAWNING, true);
         world.setDifficulty(Difficulty.NORMAL);
         sender.getServer().broadcast(Utils.SpaceJoin("Speedrun started by", sender.name()));
