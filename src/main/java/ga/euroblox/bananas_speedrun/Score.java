@@ -7,10 +7,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public record Score(boolean tillDragon, long date, long ticks, Set<UUID> players) {
-    private static transient final String dragonKey = ".dragon";
-    private static transient final String dateKey = ".date";
-    private static transient final String ticksKey = ".ticks";
-    private static transient final String playersKey = ".players";
+    private static final String dragonKey = ".dragon";
+    private static final String dateKey = ".date";
+    private static final String ticksKey = ".ticks";
+    private static final String playersKey = ".players";
 
     public static Score Load(FileConfiguration config, String key) {
         return new Score(config.getBoolean(key + dragonKey), config.getLong(key + dateKey), config.getLong(key + ticksKey), config.getStringList(key + playersKey).stream().map(UUID::fromString).collect(Collectors.toSet()));
